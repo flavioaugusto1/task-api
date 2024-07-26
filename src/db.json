@@ -1,0 +1,20 @@
+{
+    "users": [
+        {
+            "id": "b7dbc477-38aa-4e05-befe-071539fc9b4f",
+            "title": "Node",
+            "description": "Aprender node para conseguir primeira vaga",
+            "createdAt": "2024-07-26T14:39:45.848Z",
+            "completedAt": null,
+            "updatedAt": "2024-07-26T14:39:45.848Z"
+        },
+        {
+            "id": "1fcc6fbf-852d-40e0-b2da-df7863bf164b",
+            "title": "MongoDB",
+            "description": "Aprender MongoDB para conseguir primeira vaga",
+            "createdAt": "2024-07-26T14:41:18.241Z",
+            "completedAt": null,
+            "updatedAt": "2024-07-26T14:41:18.241Z"
+        }
+    ]
+}

@@ -1,5 +1,5 @@
 import http from "node:http";
-import { json } from "stream/consumers";
+import { json } from "./middlewares/json.js";
 import { routes } from "./utils/routes.js";
 
 const server = http.createServer(async (req, res) => {
@@ -12,7 +12,7 @@ const server = http.createServer(async (req, res) => {
     });
 
     if (route) {
-        route.handler();
+        route.handler(req, res);
     }
 });
 
