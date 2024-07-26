@@ -1,6 +1,6 @@
 import http from "node:http";
 import { json } from "stream/consumers";
-import { routes } from "./utils/routes";
+import { routes } from "./utils/routes.js";
 
 const server = http.createServer(async (req, res) => {
     const { method, url } = req;
