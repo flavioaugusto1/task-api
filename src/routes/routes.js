@@ -9,7 +9,7 @@ export const routes = [
         method: "GET",
         path: buildPathRoute("/task"),
         handler: (req, res) => {
-            const users = database.select("users");
+            const users = database.select("task");
             return res.end(JSON.stringify(users));
         },
     },
@@ -24,7 +24,7 @@ export const routes = [
 
             const { title, description } = req.body;
 
-            database.insert("users", {
+            database.insert("task", {
                 id,
                 title,
                 description,
@@ -46,6 +46,11 @@ export const routes = [
     {
         method: "DELETE",
         path: buildPathRoute("/task/:id"),
-        handler: (req, res) => {},
+        handler: (req, res) => {
+            const { id } = req.params.groups;
+
+            database.delete("task", id);
+            res.end();
+        },
     },
 ];
