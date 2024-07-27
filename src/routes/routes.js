@@ -40,7 +40,12 @@ export const routes = [
         method: "PUT",
         path: buildPathRoute("/task/:id"),
         handler: (req, res) => {
-            res.end("Entrou no put");
+            const { id } = req.params.groups;
+            const { title, description } = req.body;
+
+            database.update("task", id, { title, description });
+
+            res.writeHead(204).end();
         },
     },
     {

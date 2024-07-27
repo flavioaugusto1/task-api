@@ -35,6 +35,27 @@ export class Database {
         return data;
     }
 
+    update(table, id, data) {
+        const itemRow = this.#database[table].findIndex((row) => {
+            return row.id === id;
+        });
+
+        if (itemRow > -1) {
+            const { createdAt, completedAt } = this.#database[table][itemRow];
+            const updatedAt = new Date();
+
+            this.#database[table][itemRow] = {
+                id,
+                ...data,
+                createdAt,
+                completedAt,
+                updatedAt,
+            };
+
+            this.#persist();
+        }
+    }
+
     delete(table, id) {
         const itemRow = this.#database[table].findIndex((row) => {
             return row.id === id;
