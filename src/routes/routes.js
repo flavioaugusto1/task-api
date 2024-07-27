@@ -49,6 +49,17 @@ export const routes = [
         },
     },
     {
+        method: "PATCH",
+        path: buildPathRoute("/task/:id/complete"),
+        handler: (req, res) => {
+            const { id } = req.params.groups;
+
+            database.updateComplete("task", id);
+
+            res.writeHead(204).end();
+        },
+    },
+    {
         method: "DELETE",
         path: buildPathRoute("/task/:id"),
         handler: (req, res) => {
