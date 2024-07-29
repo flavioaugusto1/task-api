@@ -34,6 +34,14 @@ export const routes = [
 
             const { title, description } = req.body;
 
+            if (!title || !description) {
+                return res.writeHead(404).end(
+                    JSON.stringify({
+                        message: "Você não informou o título ou a descrição",
+                    }),
+                );
+            }
+
             database.insert("task", {
                 id,
                 title,
