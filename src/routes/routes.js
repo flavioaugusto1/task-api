@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { Database } from "../database/database.js";
 import { buildPathRoute } from "../utils/build-route-path.js";
+import { Csv } from "../middlewares/csv.js";
 
 const database = new Database();
 
@@ -15,12 +16,21 @@ export const routes = [
     },
     {
         method: "POST",
+        path: buildPathRoute("/file"),
+        handler: (req, res) => {
+            const csv = new Csv().import();
+
+            res.writeHead(200).end();
+        },
+    },
+    {
+        method: "POST",
         path: buildPathRoute("/task"),
         handler: (req, res) => {
             const id = randomUUID();
-            const createdAt = new Date();
-            const completedAt = null;
-            const updatedAt = new Date();
+            const created_at = new Date();
+            const completed_at = null;
+            const updated_at = new Date();
 
             const { title, description } = req.body;
 
@@ -28,9 +38,9 @@ export const routes = [
                 id,
                 title,
                 description,
-                createdAt,
-                completedAt,
-                updatedAt,
+                created_at,
+                completed_at,
+                updated_at,
             });
 
             return res.writeHead(204).end();
