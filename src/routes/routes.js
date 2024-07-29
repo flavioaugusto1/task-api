@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { Database } from "../database/database.js";
 import { buildPathRoute } from "../utils/build-route-path.js";
-import { Csv } from "../middlewares/csv.js";
+import { Csv } from "../utils/csv.js";
 
 const database = new Database();
 
@@ -10,8 +10,15 @@ export const routes = [
         method: "GET",
         path: buildPathRoute("/task"),
         handler: (req, res) => {
-            const users = database.select("task");
-            return res.end(JSON.stringify(users));
+            const { title, description } = req.query;
+
+            if (title || description) {
+                const task = database.select("task", { title, description });
+                return res.end(JSON.stringify(task));
+            }
+
+            const task = database.select("task");
+            return res.end(JSON.stringify(task));
         },
     },
     {
@@ -20,7 +27,7 @@ export const routes = [
         handler: (req, res) => {
             const csv = new Csv().import();
 
-            res.writeHead(200).end();
+            res.writeHead(204).end();
         },
     },
     {
@@ -58,7 +65,7 @@ export const routes = [
         method: "PUT",
         path: buildPathRoute("/task/:id"),
         handler: (req, res) => {
-            const { id } = req.params.groups;
+            const { id } = req.params;
             const { title, description } = req.body;
 
             database.update("task", id, { title, description });
@@ -70,7 +77,7 @@ export const routes = [
         method: "PATCH",
         path: buildPathRoute("/task/:id/complete"),
         handler: (req, res) => {
-            const { id } = req.params.groups;
+            const { id } = req.params;
 
             database.updateComplete("task", id);
 
@@ -81,7 +88,7 @@ export const routes = [
         method: "DELETE",
         path: buildPathRoute("/task/:id"),
         handler: (req, res) => {
-            const { id } = req.params.groups;
+            const { id } = req.params;
 
             database.delete("task", id);
             res.end();

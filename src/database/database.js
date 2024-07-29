@@ -19,8 +19,19 @@ export class Database {
         fs.writeFile(databasePath, JSON.stringify(this.#database));
     }
 
-    select(table) {
-        const data = this.#database[table] ?? [];
+    select(table, search) {
+        let data = this.#database[table] ?? [];
+
+        if (search) {
+            data = data.filter((row) => {
+                return Object.entries(search).some(([key, value]) => {
+                    return row[key]
+                        .toLowerCase()
+                        .includes(decodeURIComponent(value).toLowerCase());
+                });
+            });
+        }
+
         return data;
     }
 
@@ -41,8 +52,8 @@ export class Database {
         });
 
         if (itemRow > -1) {
-            this.#database[table][itemRow].completedAt = new Date();
-            this.#database[table][itemRow].updatedAt = new Date();
+            this.#database[table][itemRow].completed_at = new Date();
+            this.#database[table][itemRow].updated_at = new Date();
             this.#persist();
         }
     }
