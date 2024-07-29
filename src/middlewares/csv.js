@@ -1,10 +1,12 @@
 import fs from "node:fs";
 import { parse } from "csv";
 
+const pathFile = new URL("../task.csv", import.meta.url);
+
 export class Csv {
     async import() {
         const parser = fs
-            .createReadStream("task.csv", "utf-8")
+            .createReadStream(pathFile, "utf-8")
             .pipe(parse({ delimiter: ",", columns: true }));
 
         for await (const row of parser) {
