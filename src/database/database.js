@@ -53,14 +53,23 @@ export class Database {
         });
 
         if (itemRow > -1) {
-            const { createdAt, completedAt } = this.#database[table][itemRow];
+            const { created_at, completed_at } = this.#database[table][itemRow];
+
+            if (!data.title) {
+                data.title = this.#database[table][itemRow].title;
+            }
+
+            if (!data.description) {
+                data.description = this.#database[table][itemRow].description;
+            }
+
             const updatedAt = new Date();
 
             this.#database[table][itemRow] = {
                 id,
                 ...data,
-                createdAt,
-                completedAt,
+                created_at,
+                completed_at,
                 updatedAt,
             };
 

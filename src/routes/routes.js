@@ -37,7 +37,7 @@ export const routes = [
             if (!title || !description) {
                 return res.writeHead(404).end(
                     JSON.stringify({
-                        message: "Você não informou o título ou a descrição",
+                        message: "Você não informou o título e/ou descrição",
                     }),
                 );
             }
